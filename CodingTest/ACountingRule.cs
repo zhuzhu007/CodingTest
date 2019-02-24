@@ -37,7 +37,7 @@ namespace CodingTest
                 _ruleStatus = RuleStatus.Stopped;
                 return;
             }
-            if(num == 0 && Filters != null)
+            if(num == 0 && (Filters != null || Filters.Any()))
             {
                 _ruleStatus = RuleStatus.Stopped;
                 return;
