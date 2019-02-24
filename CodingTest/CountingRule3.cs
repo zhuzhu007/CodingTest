@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,33 +14,18 @@ namespace CodingTest
         }
         public override int Count(List<string> words)
         {
-            if (Filters.Any() && words.Any())
-            {
-                var filter1 = Filters.First().Values;
-                if (filter1.Any())
-                {
-                    var startWithaOrbOrc = words.Where(x => filter1.Any(y => x.StartsWith(y.ToString()))).ToList();
-                    return Convert.ToInt32(startWithaOrbOrc.Max(x => x.Length));
-                }  
-            }
-            //if no filters or words
-            return -1;
+            if (words == null || !words.Any())
+                return -1;
+            var filter1 = Filters.First().Values;
+            var startWithaOrbOrc = words.Where(x => filter1.Any(y => x.StartsWith(y.ToString()))).ToList();
+            return Convert.ToInt32(startWithaOrbOrc.Max(x => x.Length));
         }
 
         public override string GetRuleName()
         {
-            if (Filters.Any())
-            {
-                var filter1 = Filters.First();
-                if (!string.IsNullOrEmpty(filter1.Name) && filter1.Values.Any())
-                {
-                    var lowcases = FilterOutUpperCase(filter1.Values);
-                    return $"longest_word_{filter1.Name}_{string.Join("", lowcases)}";
-                }
-
-            }
-
-            return "something wrong in rule3's filter, cannot get the name";
+            var filter1 = Filters.First();
+            var lowcases = FilterOutUpperCase(filter1.Values);
+            return $"longest_word_{filter1.Name}_{string.Join("", lowcases)}";
         }
     }
 }
