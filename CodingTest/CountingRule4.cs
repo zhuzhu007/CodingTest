@@ -14,7 +14,7 @@ namespace CodingTest
         }
         public override int Count(List<string> words)
         {
-            if (words == null || !words.Any())
+            if (words == null || !words.Any() || words.Count < 2)
                 return -1;
             var filter1 = Filters[0];
             var filter2 = Filters[1];
