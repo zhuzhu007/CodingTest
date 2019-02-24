@@ -26,11 +26,12 @@ namespace CodingTest
 
             IInputOutput io = new InputOutputService();
             List<string> words = io.GetInput("TextFile1");
-            if (words != null && !words.Any())
+            if (words == null || !words.Any())
             {
-                Console.WriteLine("Please check your input file");
+                throw new Exception("Please check your input file");
             }
             var handler = new RuleHandler(io);
+            //add all 4 rules for testing
             handler.AddRule("rule1", new List<RuleFilter> { new RuleFilter("starting_with", new List<char> { 'a', 'A'}) });
             handler.AddRule("rule2", new List<RuleFilter> { new RuleFilter("starting_with", new List<char> { 'b', 'B' }), new RuleFilter("count_of", new List<char> { 'e', 'E' }) });
             handler.AddRule("rule3", new List<RuleFilter> { new RuleFilter("starting_with", new List<char> { 'a', 'b','c' }) });
